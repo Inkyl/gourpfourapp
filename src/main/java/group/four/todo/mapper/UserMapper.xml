@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="group.four.todo.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="group.four.todo.model.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="mail_address" jdbcType="VARCHAR" property="mailAddress"/>
+        <result column="user_intro" jdbcType="VARCHAR" property="userIntro"/>
+    </resultMap>
+    <select id="queryUser" resultType="group.four.todo.model.User" resultMap="BaseResultMap">
+        select *
+        FROM user
+        WHERE username = #{username}
+          AND password = #{password}
+    </select>
+
+    <select id="queryUserByUsername" resultType="group.four.todo.model.User" resultMap="BaseResultMap">
+        select *
+        FROM user
+        WHERE username = #{username}
+    </select>
+
+    <select id="queryUserById" resultType="group.four.todo.model.User" resultMap="BaseResultMap">
+        select *
+        FROM user
+        WHERE id = #{id}
+    </select>
+
+    <insert id="registerUser" parameterType="group.four.todo.model.User">
+        INSERT INTO user (username, password, mail_address, user_intro)
+        values (#{username}, #{password}, #{mailAddress}, #{userIntro})
+    </insert>
+
+    <update id="updateUser" parameterType="group.four.todo.model.User">
+        UPDATE user
+        SET username=#{username},
+            mail_Address=#{mailAddress},
+            user_intro=#{userIntro}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updatePwd" parameterType="group.four.todo.model.User">
+        UPDATE user
+        SET password=#{password}
+        WHERE id = #{id}
+    </update>
+</mapper>

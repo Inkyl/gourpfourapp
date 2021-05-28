@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="group.four.todo.mapper.ArticleMapper">
+
+    <resultMap id="baseResultMap" type="group.four.todo.model.Article">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="title" jdbcType="VARCHAR" column="title"/>
+        <result property="content" jdbcType="LONGVARCHAR" column="content"/>
+        <result property="createDate" jdbcType="TIMESTAMP" column="create_date"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="userId" jdbcType="INTEGER" column="user_id"/>
+    </resultMap>
+    <insert id="publish" parameterType="group.four.todo.model.Article">
+        INSERT INTO article (content, title, create_date, update_date, user_id)
+        VALUES (#{content}, #{title}, #{createDate}, #{updateDate}, #{userId})
+    </insert>
+    <select id="getAllArticles" resultMap="baseResultMap" resultType="java.util.List">
+        SELECT *
+        FROM article
+    </select>
+</mapper>
